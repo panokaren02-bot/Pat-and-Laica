@@ -4074,19 +4074,6 @@
   filter: saturate(0.96) brightness(1.02);
 }
 
-/* Small floral sprig resting on the frame's base */
-.home-hero-cover::after {
-  content: "";
-  position: relative;
-  z-index: 2;
-  display: block;
-  width: 58%;
-  aspect-ratio: 2170 / 725;
-  margin: -1.6rem auto 0;
-  background: url("/deco/new-deco/small-center.png") center / contain no-repeat;
-  filter: drop-shadow(0 4px 6px color-mix(in srgb, #541C1B 15%, transparent));
-}
-
 @media (min-width: 768px) {
   .home-hero-content--cover {
     flex-direction: row;

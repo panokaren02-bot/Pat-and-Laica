@@ -274,7 +274,7 @@ const ATTIRE = {
 // NEXT_PUBLIC_SITE_URL (env) overrides this when set.
 const SITE_URL = "https://pat-and-laica.weddinginvitationrsvp.com/"
 // Image shown when the link is shared (Facebook, Messenger, Viber, X, …) — 1200×630 JPG in /public
-const LINK_PREVIEW_IMAGE = "/Details/Linlkahgdj.png"
+const LINK_PREVIEW_IMAGE = "/Details/LinkPreview.png"
 
 // Site address with env override applied and no trailing slash — no need to edit
 export const canonicalSiteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? SITE_URL).replace(/\/$/, "")
@@ -323,14 +323,17 @@ const MARQUEE_PHOTOS = Array.from(
 // Change a path here to swap it on every section at once.
 // To change ONE section only, override it there, e.g. decos: { ...SECTION_DECOS, footerVine: "" }
 const DECOR = {
-  cornerTopLeft: "/deco/new-deco/left-top-corner-new.png",
-  cornerTopRight: "/deco/new-deco/right-top-corner-new.png",
-  cornerBottomLeft: "/deco/new-deco/left-bottom-corner.png",
-  cornerBottomRight: "/deco/new-deco/right-bottom-corner.png",
-  cornerOverlayTopLeft: "/deco/new-deco/left-top-corner.png", // floral corner layered over the top vines (loader + envelope)
-  cornerOverlayTopRight: "/deco/new-deco/right-top-corner.png",
-  headerOrnament: "/deco/new-deco/small-center.png", // small sprig above titles
-  footerVine: "/deco/new-deco/long-center.png", // long vine at section ends
+  // Corner, header and footer decorations are turned off ("" hides them everywhere).
+  // Originals: corners /deco/new-deco/{left,right}-{top-corner-new,bottom-corner}.png,
+  // overlays /deco/new-deco/{left,right}-top-corner.png, header small-center.png, footer long-center.png
+  cornerTopLeft: "",
+  cornerTopRight: "",
+  cornerBottomLeft: "",
+  cornerBottomRight: "",
+  cornerOverlayTopLeft: "", // floral corner layered over the top vines (loader + envelope)
+  cornerOverlayTopRight: "",
+  headerOrnament: "", // small sprig above titles
+  footerVine: "", // long vine at section ends
   sideLeft: "/deco/lovestorydeco/Elegant-Eucalyptus-Left.png", // love story side sprigs
   sideRight: "/deco/lovestorydeco/Elegant-Eucalyptus-Right.png",
 }
@@ -496,7 +499,7 @@ export const siteConfig = {
     // image → photo beside the text ("" for none). {groom} / {bride} → nicknames.
     chapters: [
       {
-        date: "August 2025",
+        date: "August 2015",
         title: "Where It All Began",
         theme: "light" as const,
         layout: "image-left" as const,
