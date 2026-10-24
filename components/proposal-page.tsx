@@ -893,7 +893,7 @@ function ProposalPageInner({ role }: ProposalPageProps) {
   const siteConfig = useSiteConfig()
   const { labels } = siteConfig.proposal
   // Silk paints on canvas, so resolve the CSS token to a hex color (dusty blue, like the main invitation)
-  const silkColor = rgbToHex(useCssColor("--color-welcome-heading", "#8E524D"))
+  const silkColor = rgbToHex(useCssColor("--color-welcome-heading", "#94505E"))
   const copyKey = copyKeyFor(role)
   const copy = siteConfig.proposal.copy[copyKey]
   const confirmedDisplayName = (inviteeFromLink || preferredName).trim()

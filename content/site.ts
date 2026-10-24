@@ -12,8 +12,8 @@ export type TimelineIconName =
   | "dance"
 
 export type AttireGroupId = "entourage" | "family" | "sponsors" | "guests"
-// A palette color: "#9CAF88" or { name: "Sage", hex: "#9CAF88" }
-export type AttireColor = string | { name: string; hex: string }
+// A palette color: "#9CAF88" or { name: "Sage", hex: "#9CAF88", role: "Dominant" } (role is optional)
+export type AttireColor = string | { name: string; hex: string; role?: string }
 
 /* ============================================================================
    SOP — CREATING / UPDATING AN INVITATION
@@ -161,13 +161,15 @@ const HASHTAGS = ["#LAICAfoundtherightPAT"] // ⚠ check — looks like it's fro
 //     label:     e.g. "Ninang", "Bridesmaids", "Ladies"
 //     details:   the dress code text ("" hides this half of the card)
 //     highlight: phrase inside details shown bold + underlined ("" for none)
-// Guest dress code colors — also shown in the "Dress Code" gentle reminder
+// Official wedding color palette — shown as circles with the name and role under each.
+// Same hexes as the motif tokens in app/globals.css (change both together).
+// Also shown in the "Dress Code" gentle reminder.
 const DRESS_CODE_PALETTE: AttireColor[] = [
-  { name: "Peach Beige", hex: "#EBC8B5" },
-  { name: "Blush Pink", hex: "#E8B7B4" },
-  { name: "Dusty Rose", hex: "#D4948A" },
-  { name: "Terracotta", hex: "#984641" },
-  { name: "Burgundy", hex: "#541C1B" },
+  { name: "Old Rose", hex: "#B86F7E", role: "Dominant" },
+  { name: "Blush Pink", hex: "#E1B4BE", role: "Dominant" },
+  { name: "Warm Cream", hex: "#F4EEE1", role: "Dominant" },
+  { name: "Nude Beige", hex: "#E6D5BE", role: "Dominant" },
+  { name: "Burgundy", hex: "#6E2430", role: "Accent" },
 ];
 
 // Attire groups shown in the Details section (components/sections/details.tsx).
@@ -187,7 +189,7 @@ const ATTIRE = {
     note: "",
     ladies: {
       label: "Ladies",
-      details: "Floor-length gowns in peach beige, dusty rose, terracotta or burgundy. Soft, flowy fabrics like chiffon or tulle are perfect, and each of you may wear a different shade from the palette.",
+      details: "Floor-length gowns in old rose, blush pink, cream or nude beige, with a touch of burgundy. Soft, flowy fabrics like chiffon or tulle are perfect, and each of you may wear a different shade from the palette.",
       highlight: "Floor-length gowns",
       roles: [] as { role: string; attire: string }[],
     },
@@ -254,16 +256,16 @@ const ATTIRE = {
     image: "/Details/guest-new.png",
     dressCode: "Formal / Semi-Formal Attire",
     palette: DRESS_CODE_PALETTE,
-    note: "We encourage everyone to follow our color palette to create a beautiful and harmonious look for our special day.",
+    note: "Our dominant motif is **Blush Pink (Old Rose)** and **Cream / Beige**, accented with a **Touch of Burgundy**. Kindly refrain from wearing pure white, as this is reserved for the Bride.",
     ladies: {
       label: "Ladies",
-      details: "Flowy long or midi dresses in any of our wedding palette colors: Peach Beige, Blush Pink, Dusty Rose, Terracotta, or Burgundy.",
+      details: "Flowy long or midi dresses in any of our wedding palette colors: Old Rose, Blush Pink, Warm Cream, Nude Beige, or Burgundy.",
       highlight: "Flowy long or midi dresses",
       roles: [] as { role: string; attire: string }[],
     },
     gentlemen: {
       label: "Gentlemen",
-      details: "Long-sleeved collared shirts in Beige, Blush Pink, Dusty Rose, Terracotta, or Burgundy, paired with Khaki, Brown, or Black slacks.",
+      details: "Long-sleeved collared shirts in Nude Beige, Cream, Blush Pink, Old Rose, or Burgundy, paired with Khaki, Brown, or Black slacks.",
       highlight: "Long-sleeved collared shirts",
       roles: [] as { role: string; attire: string }[],
     },
@@ -391,8 +393,8 @@ export const siteConfig = {
     time: TIMES.ceremony,
     venue: CEREMONY_VENUE.name,
     tagline: "are getting married!!!!!",
-    theme: "Navy Blue & Blush Pink",
-    motif: "#835643, #C48C73, #CBAFA1, #E3CAC5, #F2E9E2",
+    theme: "Blush Pink (Old Rose) & Cream / Beige, with a touch of Burgundy",
+    motif: "#B86F7E, #E1B4BE, #F4EEE1, #E6D5BE, #6E2430",
   },
   // Opening "Save the Date" loading screen (components/loader/LoadingScreen.tsx).
   // Couple names, wedding date and ceremony details come from couple / wedding / ceremony above.
@@ -637,7 +639,7 @@ export const siteConfig = {
       title: "Attire Guidelines",
       description: "Our day is dressed in warm, romantic tones, and we would love for you to wear them with us. Please follow the guide for your role below.",
       // Shown above a card's palette
-      paletteTitle: "Dress Code Palette",
+      paletteTitle: "Official Color Palette",
       paletteSubtitle: "", // script line under the palette title — "" hides it
       colorGuideTitle: "Color Guide",
       colorGuideNote: "Choose any shade from the palette below. Solid colors and soft, flowy fabrics are all welcome.",
@@ -705,7 +707,7 @@ export const siteConfig = {
           variant: "accent" as "accent" | "soft",
           showPalette: true,
           paragraphs: [
-            "Guests, kindly come in semi-formal attire in any of our palette colors: peach beige, dusty rose, terracotta or burgundy.",
+            "Guests, kindly come in semi-formal attire in any of our palette colors: old rose, blush pink, warm cream, nude beige, or a touch of burgundy.",
             "Please avoid casual clothes and all-white outfits.",
           ],
         },
@@ -1117,7 +1119,7 @@ export const siteConfig = {
       {
         question: "What is the dress code?",
         answer:
-          "Please follow the [attire guide](#details) in Event Details. Our guest dress code is semi-formal in peach beige, dusty rose, terracotta or burgundy. Ladies may wear a flowy long or midi dress in any of these colors. Gentlemen may wear a long-sleeve collared shirt in burgundy, terracotta or dusty rose with beige or khaki slacks. Kindly avoid casual clothes and all-white outfits.",
+          "Please follow the [attire guide](#details) in Event Details. Our guest dress code is semi-formal in old rose, blush pink, warm cream or nude beige, with a touch of burgundy. Ladies may wear a flowy long or midi dress in any of these colors. Gentlemen may wear a long-sleeve collared shirt in old rose, blush pink, nude beige or burgundy with beige or khaki slacks. Kindly avoid casual clothes and all-white outfits.",
       },
       {
         question: "Will the ceremony be unplugged?",

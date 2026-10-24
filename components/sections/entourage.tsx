@@ -321,14 +321,20 @@ const ROLE_CATEGORY_ORDER = [
   // Side-by-side pairs (see PAIRED_COLUMN_SECTIONS)
   "Little Groomsmen",
   "Little Bridesmaids",
-  // Ring | Coin side by side, Bible centered below (see BEARER_BLOCK_CATEGORIES)
+  // Ring | Coin, then Bible | Banner, side by side (see BEARER_PAIRS)
   "Ring Bearer",
   "Coin Bearer",
   "Bible Bearer",
+  "Banner Bearer",
   "Flower Ladies",
 ]
 
-const BEARER_BLOCK_CATEGORIES = ["Ring Bearer", "Coin Bearer", "Bible Bearer"] as const
+// Bearers shown together, two columns per row like the principal sponsors
+const BEARER_PAIRS = [
+  ["Ring Bearer", "Coin Bearer"],
+  ["Bible Bearer", "Banner Bearer"],
+] as const
+const BEARER_BLOCK_CATEGORIES: readonly string[] = BEARER_PAIRS.flat()
 
 // Two categories shown as left | right columns under their own titles
 const PAIRED_COLUMN_SECTIONS: { key: string; left: string; right: string }[] = [
@@ -344,6 +350,7 @@ const SINGLE_COLUMN_SECTIONS = new Set([
   "Ring Bearer",
   "Coin Bearer",
   "Bible Bearer",
+  "Banner Bearer",
   "Flower Girls",
   "Presider",
 ])
@@ -388,6 +395,10 @@ function normalizeRoleCategory(category: string): string {
   if (alias) return alias
   if (/^little love bearers?$/i.test(normalized)) return "Little Love Bearer"
   if (/^candle bearers?$/i.test(normalized)) return "Candle Bearer"
+  if (/^ring bearers?$/i.test(normalized)) return "Ring Bearer"
+  if (/^coin bearers?$/i.test(normalized)) return "Coin Bearer"
+  if (/^bible bearers?$/i.test(normalized)) return "Bible Bearer"
+  if (/^banner bearers?$/i.test(normalized)) return "Banner Bearer"
   if (/^ch?ord sponsors?$/i.test(normalized)) return "Cord Sponsors"
   // Sheet may say "Cloth Sponsors" — same group as the veil sponsors
   if (/^(cloth|veil) sponsors?$/i.test(normalized)) return "Veil Sponsors"
@@ -1301,14 +1312,10 @@ export function Entourage({ sponsorsList }: { sponsorsList?: SponsorsList } = {}
                   )
                 }
 
-                // Ring Bearer | Coin Bearer side by side, Bible Bearer centered below
-                if ((BEARER_BLOCK_CATEGORIES as readonly string[]).includes(category)) {
+                // Bearers: Ring | Coin, then Bible | Banner (a lone bearer in a row is centered)
+                if (BEARER_BLOCK_CATEGORIES.includes(category)) {
                   const firstBearer = BEARER_BLOCK_CATEGORIES.find((c) => (grouped[c]?.length ?? 0) > 0)
                   if (category !== firstBearer) return null
-                  const ringBearer = grouped["Ring Bearer"] || []
-                  const coinBearer = grouped["Coin Bearer"] || []
-                  const bibleBearer = grouped["Bible Bearer"] || []
-                  const hasSidePair = ringBearer.length > 0 || coinBearer.length > 0
 
                   return (
                     <div key="BearerBlock">
@@ -1317,25 +1324,30 @@ export function Entourage({ sponsorsList }: { sponsorsList?: SponsorsList } = {}
                           <div className="w-full max-w-md h-px" style={dividerLineStyle} />
                         </div>
                       )}
-                      {hasSidePair && (
-                        <TwoColumnLayout
-                          leftTitle={ringBearer.length > 0 ? "Ring Bearer" : undefined}
-                          rightTitle={coinBearer.length > 0 ? "Coin Bearer" : undefined}
-                        >
-                          {renderPairRows("bearer", ringBearer, coinBearer)}
-                        </TwoColumnLayout>
-                      )}
-                      {bibleBearer.length > 0 && (
-                        <TwoColumnLayout singleTitle="Bible Bearer" centerContent={true}>
-                          <div className="col-span-full">
-                            <div className="flex flex-col items-center gap-5 sm:gap-6">
-                              {bibleBearer.map((member, idx) => (
-                                <NameItem key={`bible-bearer-${idx}-${member.name}`} member={member} align="center" />
-                              ))}
-                            </div>
-                          </div>
-                        </TwoColumnLayout>
-                      )}
+                      {BEARER_PAIRS.map(([leftRole, rightRole]) => {
+                        const left = grouped[leftRole] || []
+                        const right = grouped[rightRole] || []
+                        if (left.length === 0 && right.length === 0) return null
+                        if (left.length === 0 || right.length === 0) {
+                          const [role, members] = left.length > 0 ? [leftRole, left] : [rightRole, right]
+                          return (
+                            <TwoColumnLayout key={role} singleTitle={role} centerContent={true}>
+                              <div className="col-span-full">
+                                <div className="flex flex-col items-center gap-5 sm:gap-6">
+                                  {members.map((member, idx) => (
+                                    <NameItem key={`${role}-${idx}-${member.name}`} member={member} align="center" />
+                                  ))}
+                                </div>
+                              </div>
+                            </TwoColumnLayout>
+                          )
+                        }
+                        return (
+                          <TwoColumnLayout key={leftRole} leftTitle={leftRole} rightTitle={rightRole}>
+                            {renderPairRows(leftRole, left, right)}
+                          </TwoColumnLayout>
+                        )
+                      })}
                     </div>
                   )
                 }

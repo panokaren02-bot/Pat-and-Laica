@@ -3384,13 +3384,13 @@
    Sunshine yellow is used once — the glowing dot on the progress bar.
    ========================================================================== */
 .loading-screen--plain {
-  --ls-sky: var(--color-motif-medium);          /* #D4948A */
-  --ls-blue: var(--color-welcome-heading);      /* #984641 */
-  --ls-navy: var(--color-welcome-navy);         /* #3B1312 */
-  --ls-ink: var(--color-welcome-text);          /* #541C1B */
-  --ls-leaf: var(--color-motif-yellow);         /* #D4948A sage */
+  --ls-sky: var(--color-motif-medium);          /* #B86F7E */
+  --ls-blue: var(--color-welcome-heading);      /* #94505E */
+  --ls-navy: var(--color-welcome-navy);         /* #4A1720 */
+  --ls-ink: var(--color-welcome-text);          /* #6E2430 */
+  --ls-leaf: var(--color-motif-yellow);         /* #B86F7E sage */
   --ls-leaf-ink: color-mix(in srgb, var(--color-motif-yellow) 78%, #3C4424);
-  --ls-sun: var(--color-motif-accent);          /* #984641 */
+  --ls-sun: var(--color-motif-accent);          /* #94505E */
 
   --ls-text-dark: var(--ls-ink);
   --ls-text-accent-dark: var(--ls-blue);
@@ -3498,12 +3498,12 @@
    holds up over bright frames. Sage + sunshine appear only as accents.
    ========================================================================== */
 .home-hero--plain {
-  --hh-navy: var(--color-welcome-navy);       /* #3B1312 */
-  --hh-blue: var(--color-welcome-heading);    /* #984641 */
-  --hh-ink: var(--color-welcome-text);        /* #541C1B */
-  --hh-sky: var(--color-motif-medium);        /* #D4948A */
-  --hh-leaf: var(--color-motif-yellow);       /* #D4948A */
-  --hh-butter: var(--color-motif-silver);     /* #EBC8B5 */
+  --hh-navy: var(--color-welcome-navy);       /* #4A1720 */
+  --hh-blue: var(--color-welcome-heading);    /* #94505E */
+  --hh-ink: var(--color-welcome-text);        /* #6E2430 */
+  --hh-sky: var(--color-motif-medium);        /* #B86F7E */
+  --hh-leaf: var(--color-motif-yellow);       /* #B86F7E */
+  --hh-butter: var(--color-motif-silver);     /* #E6D5BE */
   /* Tight white edge: keeps thin strokes crisp instead of washing them out */
   --hh-edge:
     0 0 1px rgb(255 255 255 / 100%),
@@ -3882,18 +3882,18 @@
    dusty rose script, rose-ink small caps, sage hairlines.
    ========================================================================== */
 .loading-screen--plain {
-  --ls-blush: #F4DDE0;
-  --ls-pastel: #F8E9E9;
-  --ls-ivory: #FFFAF7;
-  --ls-burgundy: #541C1B;
-  --ls-rose: #D4948A;
-  --ls-rose-ink: #8E524D;
-  --ls-sage: #A3A58B;
+  --ls-blush: #E1B4BE;
+  --ls-pastel: #F4EEE1;
+  --ls-ivory: #FBF8F2;
+  --ls-burgundy: #6E2430;
+  --ls-rose: #B86F7E;
+  --ls-rose-ink: #94505E;
+  --ls-sage: #CDB89E;
 
   --ls-sky: var(--ls-rose);
   --ls-blue: var(--ls-rose-ink);
   --ls-navy: var(--ls-burgundy);
-  --ls-ink: #5E3A39;
+  --ls-ink: #5B3238;
   --ls-leaf: var(--ls-sage);
   --ls-leaf-ink: var(--ls-rose);
   --ls-sun: var(--ls-rose);
@@ -3972,14 +3972,14 @@
    Desktop: photo left, wording right.
    ========================================================================== */
 .home-hero--plain {
-  --hh-navy: #541C1B;
-  --hh-blue: #8E524D;
-  --hh-ink: #5E3A39;
-  --hh-sky: #D4948A;
-  --hh-leaf: #A3A58B;
-  --hh-butter: #F4DDE0;
+  --hh-navy: #6E2430;
+  --hh-blue: #94505E;
+  --hh-ink: #5B3238;
+  --hh-sky: #B86F7E;
+  --hh-leaf: #CDB89E;
+  --hh-butter: #E1B4BE;
   --hh-edge: none;
-  background: #F8E9E9;
+  background: #F4EEE1;
 }
 
 .home-hero--plain .home-hero-title-main,
@@ -3990,8 +3990,8 @@
 }
 
 .home-hero--plain .home-hero-title-script {
-  color: #D4948A;
-  -webkit-text-fill-color: #D4948A;
+  color: #B86F7E;
+  -webkit-text-fill-color: #B86F7E;
   text-shadow: none;
 }
 
@@ -4039,7 +4039,7 @@
   aspect-ratio: 3 / 4;
   width: calc(100% + 18px);
   border-radius: 999px 999px 22px 22px;
-  border: 1px solid color-mix(in srgb, #D4948A 55%, transparent);
+  border: 1px solid color-mix(in srgb, #B86F7E 55%, transparent);
   pointer-events: none;
 }
 
@@ -4049,12 +4049,12 @@
   aspect-ratio: 3 / 4;
   overflow: hidden;
   border-radius: 999px 999px 16px 16px;
-  background: #F4DDE0;
-  border: 5px solid #FFFAF7;
+  background: #E1B4BE;
+  border: 5px solid #FBF8F2;
   box-shadow:
-    0 0 0 1px color-mix(in srgb, #D4948A 35%, transparent),
-    0 30px 55px -30px color-mix(in srgb, #541C1B 40%, transparent),
-    0 10px 24px -14px color-mix(in srgb, #D4948A 45%, transparent);
+    0 0 0 1px color-mix(in srgb, #B86F7E 35%, transparent),
+    0 30px 55px -30px color-mix(in srgb, #6E2430 40%, transparent),
+    0 10px 24px -14px color-mix(in srgb, #B86F7E 45%, transparent);
 }
 
 /* Soft blush vignette at the base so the photo melts into the frame */
@@ -4064,7 +4064,7 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(180deg, transparent 72%, color-mix(in srgb, #F8E9E9 35%, transparent) 100%);
+  background: linear-gradient(180deg, transparent 72%, color-mix(in srgb, #F4EEE1 35%, transparent) 100%);
 }
 
 /* Natural colour, only the faintest warm lift — no heavy filter */
@@ -4108,8 +4108,8 @@
 }
 
 .loading-screen--plain .ls-headline__letter {
-  color: #541C1B;
-  -webkit-text-fill-color: #541C1B;
+  color: #6E2430;
+  -webkit-text-fill-color: #6E2430;
 }
 
 .ls-headline__break {
@@ -4156,11 +4156,11 @@
   pointer-events: none;
   background:
     /* blush glows drifting down the section */
-    radial-gradient(55% 22% at 0% 18%, color-mix(in srgb, #D4948A 22%, transparent) 0%, transparent 70%),
-    radial-gradient(50% 20% at 100% 45%, color-mix(in srgb, #F4DDE0 85%, transparent) 0%, transparent 70%),
-    radial-gradient(55% 22% at 0% 75%, color-mix(in srgb, #D4948A 18%, transparent) 0%, transparent 70%),
+    radial-gradient(55% 22% at 0% 18%, color-mix(in srgb, #B86F7E 22%, transparent) 0%, transparent 70%),
+    radial-gradient(50% 20% at 100% 45%, color-mix(in srgb, #E1B4BE 85%, transparent) 0%, transparent 70%),
+    radial-gradient(55% 22% at 0% 75%, color-mix(in srgb, #B86F7E 18%, transparent) 0%, transparent 70%),
     /* pastel pink base: lighter at the top, blush toward the bottom */
-    linear-gradient(180deg, #FBF1F0 0%, #F8E9E9 30%, #F4DDE0 70%, #F8E9E9 100%);
+    linear-gradient(180deg, #FBF1F0 0%, #F4EEE1 30%, #E1B4BE 70%, #F4EEE1 100%);
 }
 
 /* Fine paper grain so the pinks read as stationery rather than flat fill */
@@ -4176,8 +4176,8 @@
   content: "";
   position: absolute;
   inset: clamp(0.6rem, 2vw, 1.1rem);
-  border: 1px solid color-mix(in srgb, #541C1B 14%, transparent);
-  box-shadow: inset 0 0 0 4px color-mix(in srgb, #FFFAF7 45%, transparent);
+  border: 1px solid color-mix(in srgb, #6E2430 14%, transparent);
+  box-shadow: inset 0 0 0 4px color-mix(in srgb, #FBF8F2 45%, transparent);
   pointer-events: none;
 }
 
@@ -4196,41 +4196,41 @@
 
 .story-open-wash--left {
   left: -18%;
-  background: radial-gradient(closest-side, color-mix(in srgb, #D4948A 30%, transparent) 0%, color-mix(in srgb, #F4DDE0 50%, transparent) 55%, transparent 100%);
+  background: radial-gradient(closest-side, color-mix(in srgb, #B86F7E 30%, transparent) 0%, color-mix(in srgb, #E1B4BE 50%, transparent) 55%, transparent 100%);
 }
 
 .story-open-wash--right {
   right: -18%;
-  background: radial-gradient(closest-side, color-mix(in srgb, #D4948A 30%, transparent) 0%, color-mix(in srgb, #F4DDE0 50%, transparent) 55%, transparent 100%);
+  background: radial-gradient(closest-side, color-mix(in srgb, #B86F7E 30%, transparent) 0%, color-mix(in srgb, #E1B4BE 50%, transparent) 55%, transparent 100%);
 }
 
 /* Text colors on the pink: burgundy title, rose-ink details, blush rule */
 .story-open-date {
-  color: #8E524D;
+  color: #94505E;
 }
 
 .story-open-title {
-  color: #541C1B;
+  color: #6E2430;
   text-shadow: 0 1px 0 rgb(255 250 247 / 85%);
 }
 
 .story-open-rule {
-  background: #D4948A;
+  background: #B86F7E;
 }
 
 .story-open-text {
-  color: #5E3A39;
+  color: #5B3238;
   text-shadow: 0 0 8px rgb(255 250 247 / 75%);
 }
 
 .story-open-number {
-  color: color-mix(in srgb, #D4948A 30%, transparent);
+  color: color-mix(in srgb, #B86F7E 30%, transparent);
 }
 
 /* Photo frame: ivory mat with a blush edge */
 .story-open-photo {
-  background: #FFFAF7;
+  background: #FBF8F2;
   box-shadow:
-    0 0 0 1px color-mix(in srgb, #D4948A 35%, transparent),
-    0 18px 34px -16px color-mix(in srgb, #541C1B 32%, transparent);
+    0 0 0 1px color-mix(in srgb, #B86F7E 35%, transparent),
+    0 18px 34px -16px color-mix(in srgb, #6E2430 32%, transparent);
 }

@@ -9,7 +9,7 @@ import type { AttireColor } from "@/content/site"
 import Image from "next/image"
 import localFont from "next/font/local"
 import { Cinzel } from "next/font/google"
-import { Shirt, Copy, Check, Navigation, Heart, MapPin } from "lucide-react"
+import { Shirt, Copy, Check, Navigation, MapPin } from "lucide-react"
 import { motion, useReducedMotion, type Variants } from "motion/react"
 import { PlainBubbles } from "@/components/loader/PlainBubbles"
 import { TintedDeco } from "@/components/tinted-deco"
@@ -157,116 +157,114 @@ const ct = {
   reminderBody: "text-xs sm:text-sm md:text-[0.95rem]",
 } as const
 
-type PaletteColor = { name: string; hex: string }
+type PaletteColor = { name: string; hex: string; role?: string }
 
-// Palette entries may be a plain "#HEX" or { name, hex }
+// Palette entries may be a plain "#HEX" or { name, hex, role }
 function toPaletteColors(colors: readonly AttireColor[]): PaletteColor[] {
   return colors.map((c) => (typeof c === "string" ? { name: "", hex: c } : c))
 }
 
-function DressCodePaletteHeader({
-  title,
-  subtitle,
-  guideTitle,
-  guideNote,
-}: {
-  title: string
-  subtitle: string
-  guideTitle: string
-  guideNote: string
-}) {
-  return (
-    <div className="px-3 py-4 sm:px-4 sm:py-5 md:px-5 md:py-6">
-    <div className="mx-auto max-w-3xl text-center">
-      <h5
-        className={`${cinzel.className} text-sm font-semibold uppercase tracking-[0.14em] sm:text-base md:text-lg lg:text-xl`}
-        style={{ color: C.heading }}
-      >
-        {title}
-      </h5>
-      {subtitle ? (
-        <p
-          className={`${aboveTheBeyond.className} mt-1 text-lg leading-none sm:mt-1.5 sm:text-xl md:text-2xl`}
-          style={{ color: C.blue }}
-        >
-          {subtitle}
-        </p>
-      ) : null}
-
-      <div className="mx-auto mt-3 flex max-w-xs items-center justify-center gap-2 sm:mt-4 sm:max-w-sm md:max-w-md">
-        <span className="h-px flex-1" style={{ background: "linear-gradient(to right, transparent, var(--color-motif-medium))" }} />
-        <Heart className="h-2.5 w-2.5 shrink-0 sm:h-3 sm:w-3" style={{ color: C.accent, fill: C.accent }} aria-hidden />
-        <span className="h-px flex-1" style={{ background: "linear-gradient(to left, transparent, var(--color-motif-medium))" }} />
-      </div>
-
-      <p
-        className={`${cinzel.className} mt-3 text-[10px] font-bold uppercase tracking-[0.12em] sm:mt-4 sm:text-xs md:text-sm`}
-        style={{ color: C.label }}
-      >
-        {guideTitle}
-      </p>
-      <p className="font-goudy-italic mt-1.5 text-[10px] italic leading-relaxed sm:mt-2 sm:text-xs md:text-sm" style={{ color: C.body }}>
-        {guideNote}
-      </p>
-    </div>
-    </div>
+// "**text**" in a note is shown bold in the motif color
+function renderEmphasis(text: string): ReactNode {
+  return text.split(/\*\*(.+?)\*\*/g).map((part, i) =>
+    i % 2 === 1 ? (
+      <strong key={i} className="font-semibold" style={{ color: C.accent }}>
+        {part}
+      </strong>
+    ) : (
+      part
+    ),
   )
 }
 
-// Full-width color strip: every color gets an equal share of the card width
-function DressCodePaletteSwatches({ palette }: { palette: readonly PaletteColor[] }) {
+// Round swatches with the color name and role underneath, three per row
+function PaletteSwatches({ palette, compact = false }: { palette: readonly PaletteColor[]; compact?: boolean }) {
   const named = palette.filter((c) => c.name)
   return (
-    <div
-      className="flex w-full overflow-hidden rounded-xl border-2"
-      style={{
-        borderColor: "#FFFFFF",
-        boxShadow:
-          "0 0 0 1px color-mix(in srgb, var(--color-motif-medium) 60%, transparent), 0 10px 22px -14px color-mix(in srgb, var(--color-welcome-navy) 50%, transparent)",
-      }}
-      role="img"
-      aria-label={`Dress code color palette: ${(named.length ? named.map((c) => c.name) : palette.map((c) => c.hex)).join(", ")}`}
+    <ul
+      className={`mx-auto flex flex-wrap justify-center gap-y-4 sm:gap-y-5 ${compact ? "max-w-[17rem] sm:max-w-xs" : "max-w-xs sm:max-w-sm"}`}
+      aria-label={`Color palette: ${(named.length ? named.map((c) => c.name) : palette.map((c) => c.hex)).join(", ")}`}
     >
       {palette.map((color, index) => (
-        <div
-          key={`${color.hex}-${index}`}
-          className={`relative flex min-h-[88px] min-w-0 flex-1 items-center justify-center sm:min-h-[108px] md:min-h-[128px] lg:min-h-[148px] ${
-            index === palette.length - 1 ? "" : "border-r border-white/80"
-          }`}
-          style={{ backgroundColor: color.hex }}
-          title={color.name || color.hex}
-        >
+        <li key={`${color.hex}-${index}`} className="flex w-1/3 flex-col items-center text-center" title={color.name || color.hex}>
+          <span
+            className={`block rounded-full border-[3px] border-white ${compact ? "h-11 w-11 sm:h-12 sm:w-12" : "h-14 w-14 sm:h-16 sm:w-16 md:h-[4.5rem] md:w-[4.5rem]"}`}
+            style={{
+              backgroundColor: color.hex,
+              boxShadow:
+                "0 0 0 1px color-mix(in srgb, var(--color-motif-silver) 70%, transparent), 0 8px 16px -10px color-mix(in srgb, var(--color-welcome-navy) 55%, transparent)",
+            }}
+            aria-hidden
+          />
           {color.name ? (
             <span
-              className="text-[6px] font-semibold uppercase tracking-[0.08em] text-white sm:text-[7px] md:text-[8px] lg:text-[9px]"
-              style={{
-                writingMode: "vertical-rl",
-                textOrientation: "mixed",
-                textShadow: "0 1px 2px rgb(0 0 0 / 45%), 0 0 6px rgb(0 0 0 / 25%)",
-              }}
+              className={`${cinzel.className} mt-2 text-[0.6rem] font-bold uppercase leading-tight tracking-[0.06em] sm:text-[0.68rem]`}
+              style={{ color: C.heading }}
             >
               {color.name}
             </span>
           ) : null}
-        </div>
+          {color.role ? (
+            <span
+              className="mt-0.5 text-[0.5rem] font-medium uppercase tracking-[0.12em] sm:text-[0.56rem]"
+              style={{ color: C.soft }}
+            >
+              {color.role}
+            </span>
+          ) : null}
+        </li>
       ))}
-    </div>
+    </ul>
   )
 }
 
-function ColorPalette({ colors }: { colors: readonly string[] }) {
-  const widthClass = colors.length > 4 ? "max-w-md" : "max-w-xs sm:max-w-sm"
-
+// Official color palette: title, round swatches on a cream panel, then the motif note
+function OfficialPalette({
+  title,
+  subtitle,
+  palette,
+  note,
+}: {
+  title: string
+  subtitle: string
+  palette: readonly PaletteColor[]
+  note: string
+}) {
   return (
-    <div
-      className={`mx-auto flex h-8 w-full overflow-hidden rounded-full border-2 shadow-sm sm:h-9 ${widthClass}`}
-      style={{ borderColor: C.light }}
-      role="img"
-      aria-label={`Color palette: ${colors.join(", ")}`}
-    >
-      {colors.map((color) => (
-        <div key={color} className="min-w-0 flex-1" style={{ backgroundColor: color }} title={color} />
-      ))}
+    <div>
+      <div
+        className="rounded-2xl px-3 py-5 sm:px-5 sm:py-6"
+        style={{
+          background: "color-mix(in srgb, var(--color-motif-cream) 70%, white)",
+          boxShadow: "inset 0 0 0 1px color-mix(in srgb, var(--color-motif-silver) 65%, transparent)",
+        }}
+      >
+        <h5
+          className={`${cinzel.className} text-center text-[0.7rem] font-semibold uppercase tracking-[0.24em] sm:text-xs md:text-sm`}
+          style={{ color: C.heading }}
+        >
+          {title}
+        </h5>
+        {subtitle ? (
+          <p
+            className={`${aboveTheBeyond.className} mt-1 text-center text-lg leading-none sm:text-xl md:text-2xl`}
+            style={{ color: C.blue }}
+          >
+            {subtitle}
+          </p>
+        ) : null}
+        <div className="mt-4 sm:mt-5">
+          <PaletteSwatches palette={palette} />
+        </div>
+      </div>
+      {note ? (
+        <p
+          className="font-goudy-italic mx-auto mt-4 max-w-md px-1 text-center text-sm leading-relaxed sm:mt-5 sm:text-base"
+          style={{ color: C.body }}
+        >
+          {renderEmphasis(note)}
+        </p>
+      ) : null}
     </div>
   )
 }
@@ -776,7 +774,7 @@ export function Details() {
   const receptionImages = isCombined ? [] : reception.image
   // Photos above the reminders (shown in every display mode)
   const reminderImages = reminders.images
-  const paletteHexes = toPaletteColors(attire.palette).map((c) => c.hex)
+  const dressCodePalette = toPaletteColors(attire.palette)
   // Guard against null entries (e.g. a stray comma in ATTIRE.show)
   const attireGroups = attire.groups.filter(Boolean)
 
@@ -1022,18 +1020,15 @@ export function Details() {
                     ))}
                     {/* Palette at the bottom of the card (only cards that have colors) */}
                     {hasPalette ? (
-                      <div>
-                        <DressCodePaletteHeader
-                          title={attire.paletteTitle}
-                          subtitle={attire.paletteSubtitle}
-                          guideTitle={attire.colorGuideTitle}
-                          guideNote={group.note?.trim() || attire.colorGuideNote}
-                        />
-                        <DressCodePaletteSwatches palette={palette} />
-                      </div>
+                      <OfficialPalette
+                        title={attire.paletteTitle}
+                        subtitle={attire.paletteSubtitle}
+                        palette={palette}
+                        note={group.note?.trim() || attire.colorGuideNote}
+                      />
                     ) : group.note?.trim() ? (
                       <p className="font-goudy-italic text-center text-[0.78rem] leading-snug sm:text-sm" style={{ color: C.body }}>
-                        {group.note}
+                        {renderEmphasis(group.note)}
                       </p>
                     ) : null}
                   </div>
@@ -1102,7 +1097,7 @@ export function Details() {
                           {item.paragraphs.map((text, i) => (
                             <div key={i} className="space-y-2.5">
                               <p>{fillTimes(text)}</p>
-                              {item.showPalette && i === 0 ? <ColorPalette colors={paletteHexes} /> : null}
+                              {item.showPalette && i === 0 ? <PaletteSwatches palette={dressCodePalette} compact /> : null}
                             </div>
                           ))}
                         </div>

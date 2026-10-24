@@ -87,7 +87,7 @@ const sectionsRevealVariants = {
 }
 
 /** WebGL Silk needs a hex color. */
-const SILK_COLOR = "#541C1B"
+const SILK_COLOR = "#6E2430"
 
 type InvitationPageProps = {
   /** Which principal-sponsor sheet the entourage shows (googleAPI.sponsorsInviteOne / Two) */
@@ -267,12 +267,12 @@ export function InvitationPage({ sponsorsList, showEntourage = true }: Invitatio
                 <LoveStory skyBackdrop={false} />
               </div>
               <Countdown />
-              <Gallery />
+              {showEntourage && <Entourage sponsorsList={sponsorsList} />}
               {/* <MessageVideo /> */}
               <Messages />
               <Details />
               <WeddingTimeline />
-              {showEntourage && <Entourage sponsorsList={sponsorsList} />}
+              <Gallery />
               <GuestList />
               {/* One continuous circle pattern behind Book of Guests and FAQ — no seam between them */}
               <div className="relative isolate" style={{ background: "var(--color-bg-pattern-base)" }}>
