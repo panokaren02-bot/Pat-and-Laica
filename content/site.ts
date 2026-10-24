@@ -253,7 +253,7 @@ const ATTIRE = {
 
   guests: {
     title: "Wedding Guests",
-    image: "/Details/guest-new.png",
+    image: "/Details/guest-new-1.png",
     dressCode: "Formal / Semi-Formal Attire",
     palette: DRESS_CODE_PALETTE,
     note: "Our dominant motif is **Blush Pink (Old Rose)** and **Cream / Beige**, accented with a **Touch of Burgundy**. Kindly refrain from wearing pure white, as this is reserved for the Bride.",
