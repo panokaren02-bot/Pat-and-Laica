@@ -128,27 +128,6 @@ export function Welcome() {
               <OrnamentalDivider compact />
             </header>
 
-            <figure className="mx-auto max-w-[36rem] text-center">
-              <blockquote>
-                <p
-                  className={`font-goudy-italic ${sectionType.textSnug}`}
-                  style={{ color: "var(--color-welcome-navy)" }}
-                >
-                  &ldquo;He hath made every thing beautiful in his time: also he hath set the world in
-                  their heart, so that no man can find out the work that God maketh from the beginning to
-                  the end.&rdquo;
-                </p>
-                <figcaption className="mt-2 sm:mt-2.5">
-                  <cite
-                    className={`${cinzel.className} ${sectionType.label} not-italic uppercase tracking-[0.2em] sm:tracking-[0.24em]`}
-                    style={{ color: "var(--color-welcome-navy)" }}
-                  >
-                    Ecclesiastes 3:11
-                  </cite>
-                </figcaption>
-              </blockquote>
-            </figure>
-
             {/* Body: Crimson Text (upright book serif), same reading style as the love story */}
             <div
               className="mx-auto max-w-[36rem] space-y-3 text-center text-[clamp(0.875rem,1vw+0.6rem,0.96875rem)] leading-[1.7] sm:space-y-3.5 md:space-y-4"

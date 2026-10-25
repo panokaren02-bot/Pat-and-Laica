@@ -430,10 +430,10 @@ function sortGroomParents(members: EntourageMember[]): EntourageMember[] {
 
 function sortBrideParents(members: EntourageMember[]): EntourageMember[] {
   return [...members].sort((a, b) => {
-    const aIsMother = a.roleTitle?.toLowerCase().includes("mother") ?? false
-    const bIsMother = b.roleTitle?.toLowerCase().includes("mother") ?? false
-    if (aIsMother && !bIsMother) return -1
-    if (!aIsMother && bIsMother) return 1
+    const aIsFather = a.roleTitle?.toLowerCase().includes("father") ?? false
+    const bIsFather = b.roleTitle?.toLowerCase().includes("father") ?? false
+    if (aIsFather && !bIsFather) return -1
+    if (!aIsFather && bIsFather) return 1
     return 0
   })
 }

@@ -177,37 +177,44 @@ function renderEmphasis(text: string): ReactNode {
   )
 }
 
-// Round swatches with the color name and role underneath, three per row
+// One rounded strip of tall color bars, each with its name written vertically inside
 function PaletteSwatches({ palette, compact = false }: { palette: readonly PaletteColor[]; compact?: boolean }) {
   const named = palette.filter((c) => c.name)
   return (
     <ul
-      className={`mx-auto flex flex-wrap justify-center gap-y-4 sm:gap-y-5 ${compact ? "max-w-[17rem] sm:max-w-xs" : "max-w-xs sm:max-w-sm"}`}
+      className={`mx-auto flex w-full overflow-hidden rounded-xl border-[3px] border-white sm:rounded-2xl ${
+        compact ? "h-24 max-w-xs sm:h-28" : "h-32 max-w-md sm:h-40 md:h-44"
+      }`}
+      style={{
+        boxShadow:
+          "0 0 0 1px color-mix(in srgb, var(--color-motif-silver) 70%, transparent), 0 14px 28px -16px color-mix(in srgb, var(--color-welcome-navy) 55%, transparent)",
+      }}
       aria-label={`Color palette: ${(named.length ? named.map((c) => c.name) : palette.map((c) => c.hex)).join(", ")}`}
     >
       {palette.map((color, index) => (
-        <li key={`${color.hex}-${index}`} className="flex w-1/3 flex-col items-center text-center" title={color.name || color.hex}>
-          <span
-            className={`block rounded-full border-[3px] border-white ${compact ? "h-11 w-11 sm:h-12 sm:w-12" : "h-14 w-14 sm:h-16 sm:w-16 md:h-[4.5rem] md:w-[4.5rem]"}`}
-            style={{
-              backgroundColor: color.hex,
-              boxShadow:
-                "0 0 0 1px color-mix(in srgb, var(--color-motif-silver) 70%, transparent), 0 8px 16px -10px color-mix(in srgb, var(--color-welcome-navy) 55%, transparent)",
-            }}
-            aria-hidden
-          />
+        <li
+          key={`${color.hex}-${index}`}
+          className="flex min-w-0 flex-1 items-center justify-center gap-0.5"
+          style={{
+            backgroundColor: color.hex,
+            borderLeft: index > 0 ? "1px solid rgb(255 255 255 / 35%)" : undefined,
+          }}
+          title={[color.name || color.hex, color.role].filter(Boolean).join(" — ")}
+        >
           {color.name ? (
             <span
-              className={`${cinzel.className} mt-2 text-[0.6rem] font-bold uppercase leading-tight tracking-[0.06em] sm:text-[0.68rem]`}
-              style={{ color: C.heading }}
+              className={`${cinzel.className} whitespace-nowrap font-bold uppercase leading-none tracking-[0.14em] ${
+                compact ? "text-[0.45rem] sm:text-[0.5rem]" : "text-[0.5rem] sm:text-[0.6rem] md:text-[0.65rem]"
+              }`}
+              style={{ writingMode: "vertical-rl", color: "#FFFFFF", textShadow: "0 1px 2px rgb(0 0 0 / 30%)" }}
             >
               {color.name}
             </span>
           ) : null}
-          {color.role ? (
+          {color.role && !compact ? (
             <span
-              className="mt-0.5 text-[0.5rem] font-medium uppercase tracking-[0.12em] sm:text-[0.56rem]"
-              style={{ color: C.soft }}
+              className="whitespace-nowrap text-[0.42rem] font-medium uppercase leading-none tracking-[0.12em] opacity-85 sm:text-[0.5rem]"
+              style={{ writingMode: "vertical-rl", color: "#FFFFFF", textShadow: "0 1px 2px rgb(0 0 0 / 30%)" }}
             >
               {color.role}
             </span>
@@ -218,45 +225,27 @@ function PaletteSwatches({ palette, compact = false }: { palette: readonly Palet
   )
 }
 
-// Official color palette: title, round swatches on a cream panel, then the motif note
+// Color palette sits directly in the attire card: optional subtitle, the color strip, then the motif note
 function OfficialPalette({
-  title,
   subtitle,
   palette,
   note,
 }: {
-  title: string
   subtitle: string
   palette: readonly PaletteColor[]
   note: string
 }) {
   return (
     <div>
-      <div
-        className="rounded-2xl px-3 py-5 sm:px-5 sm:py-6"
-        style={{
-          background: "color-mix(in srgb, var(--color-motif-cream) 70%, white)",
-          boxShadow: "inset 0 0 0 1px color-mix(in srgb, var(--color-motif-silver) 65%, transparent)",
-        }}
-      >
-        <h5
-          className={`${cinzel.className} text-center text-[0.7rem] font-semibold uppercase tracking-[0.24em] sm:text-xs md:text-sm`}
-          style={{ color: C.heading }}
+      {subtitle ? (
+        <p
+          className={`${aboveTheBeyond.className} mb-4 text-center text-lg leading-none sm:mb-5 sm:text-xl md:text-2xl`}
+          style={{ color: C.blue }}
         >
-          {title}
-        </h5>
-        {subtitle ? (
-          <p
-            className={`${aboveTheBeyond.className} mt-1 text-center text-lg leading-none sm:text-xl md:text-2xl`}
-            style={{ color: C.blue }}
-          >
-            {subtitle}
-          </p>
-        ) : null}
-        <div className="mt-4 sm:mt-5">
-          <PaletteSwatches palette={palette} />
-        </div>
-      </div>
+          {subtitle}
+        </p>
+      ) : null}
+      <PaletteSwatches palette={palette} />
       {note ? (
         <p
           className="font-goudy-italic mx-auto mt-4 max-w-md px-1 text-center text-sm leading-relaxed sm:mt-5 sm:text-base"
@@ -1021,7 +1010,6 @@ export function Details() {
                     {/* Palette at the bottom of the card (only cards that have colors) */}
                     {hasPalette ? (
                       <OfficialPalette
-                        title={attire.paletteTitle}
                         subtitle={attire.paletteSubtitle}
                         palette={palette}
                         note={group.note?.trim() || attire.colorGuideNote}
